@@ -96,9 +96,9 @@ class UserDetail(APIView):
         except ObjectDoesNotExist:
             user=None
         if user:
-            return JsonResponse({'bool':True, 'userid': user.userid})
+            return JsonResponse({'bool': True, 'userid': user.id})
         else:
-            return JsonResponse({'bool':False})
+            return JsonResponse({'bool': False})
             
     def delete(self, request, pk=None):
         users = User.objects.get(pk=pk)
@@ -187,16 +187,31 @@ class OrdItems(APIView):
     
 
 class OrdPost(APIView):
-    def post(self,request):
-        serializer = FoodorderSerializer(data = request.data)
+    def post(self, request):
+        serializer = FoodorderSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-        orderid = serializer.data.id
+            # orderid = serializer.data['id']
+            #
+            # serializer = request.data['list']
+            # for key in serializer:
+            #     key['orderid'] = orderid
+            # serializer = OrderitemSerializer(serializer)
+            # if serializer.is_valid():
+            #     serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-        serializer = request.list
-        for key in serializer:
-            serializer = OrderitemSerializer(serializer)
 
+class OrdPostItems(APIView):
+    def post(self,request):
+        serializer = OrderitemSerializer(data=request.data, many=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 # if pk:
 #             try:
 #                 users = Users.objects.get(pk=pk)

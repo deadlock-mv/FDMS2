@@ -43,9 +43,9 @@ class Deliveryagents(models.Model):
 
 class Foodorder(models.Model):
     id = models.AutoField(primary_key=True)
-    customerid = models.ForeignKey(User, models.DO_NOTHING, blank=True, null=True, related_name="orders")
+    customerid = models.ForeignKey(User, models.DO_NOTHING, blank=False, null=False, related_name="orders")
     status = models.CharField(max_length=256, default="preparing")
-    delagentid = models.ForeignKey(Deliveryagents, models.DO_NOTHING, default='')
+    delagentid = models.ForeignKey(Deliveryagents, models.DO_NOTHING, default=1)
     totalamount = models.IntegerField(blank=True, null=True)
     orderdate = models.DateTimeField(blank=True, null=True, auto_now_add=True)
 

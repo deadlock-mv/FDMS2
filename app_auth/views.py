@@ -4,6 +4,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from app_auth.serializers import *
 from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.views import TokenObtainPairView
 
 
 # Create your views here.
@@ -24,6 +26,26 @@ class RegisterAPIView(APIView):
 
             return Response(response_data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+    def validate(self, attrs):
+        try:
+            data = super().validate(attrs)
+        except ObjectDoesnotExist:
+            data = None
+
+        if data:
+            data['username'] = self.user.username
+            data['userid'] = self.user.id
+            data['bool'] = True
+        else:
+            data['bool'] = False
+        return data
+
+
+class MyTokenObtainPairView(TokenObtainPairView):
+    serializer_class = MyTokenObtainPairSerializer
 
 
 class LogOutAPIView(APIView):

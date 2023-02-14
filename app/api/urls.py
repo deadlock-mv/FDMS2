@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import UserList, UserDetail, CategoryList, CategoryDetail, OrderList, OrdItems
+from .views import UserList, UserDetail, CategoryList, CategoryDetail, OrderList, OrdItems, OrdPost, OrdPostItems
 
 
 urlpatterns = [
@@ -12,5 +12,7 @@ urlpatterns = [
     path('Order/<int:pk>/', OrderList.as_view(), name='Order'),
     path('login/',UserDetail.login, name='Login'),
 
-    path('ordlist/',OrdItems.as_view()),
+    path('Order-items/',OrdPost.as_view()),
+
+    path('ordlist/',OrdPostItems.as_view()),
 ]
