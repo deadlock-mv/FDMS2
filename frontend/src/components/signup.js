@@ -33,14 +33,14 @@ function Signup() {
         console.log(data.username)
         axios({
             method: "POST",
-            url: "http://127.0.0.1:8000/userlist/",
+            url: "http://127.0.0.1:8000/api/register/",
             data:
-                {name: data.name,
+                {
                 username: data.username,
+                email: data.email,
                 password: data.password,
-                address: data.address,
-                pincode: data.pincode,
-                phone: data.phone},
+                password2: data.password2
+            },
         }).then((response) => {
             console.log(response.data);
             alert("Registration successful");
@@ -71,16 +71,16 @@ function Signup() {
                                         <div className="col-md-6 mb-4">
 
                                             <div className="form-outline">
-                                                <input onChange={(e) => handleChange(e)} type="text" id="name" required className="form-control form-control-lg" />
-                                                <label className="form-label" for="firstName">Name</label>
+                                                <input onChange={(e) => handleChange(e)} type="text" id="username" required className="form-control form-control-lg" />
+                                                <label className="form-label" for="firstName">Username</label>
                                             </div>
 
                                         </div>
                                         <div className="col-md-6 mb-4">
 
                                             <div className="form-outline">
-                                                <input onChange={(e) => handleChange(e)} type="email" id="username" required className="form-control form-control-lg" />
-                                                <label className="form-label" for="lastName">Email/Username</label>
+                                                <input onChange={(e) => handleChange(e)} type="email" id="email" required className="form-control form-control-lg" />
+                                                <label className="form-label" for="lastName">Email</label>
                                             </div>
 
                                         </div>
@@ -90,7 +90,7 @@ function Signup() {
                                         <div className="col-md-6 mb-4 d-flex align-items-center">
 
                                             <div className="form-outline datepicker w-100">
-                                                <input onChange={(e) => handleChange(e)} type="text" required className="form-control form-control-lg" id="password" />
+                                                <input onChange={(e) => handleChange(e)} type="password" required className="form-control form-control-lg" id="password" />
                                                 <label for="birthdayDate" className="form-label">Password</label>
                                             </div>
 
@@ -98,14 +98,14 @@ function Signup() {
                                         <div className="col-md-6 mb-4">
 
                                             <div className="form-outline">
-                                                <input onChange={(e) => handleChange(e)} type="text" id="address" required className="form-control form-control-lg" />
-                                                <label className="form-label" for="lastName">Address</label>
+                                                <input onChange={(e) => handleChange(e)} type="text" id="password2" required className="form-control form-control-lg" />
+                                                <label className="form-label" for="lastName">Re-type password</label>
                                             </div>
 
                                         </div>
                                     </div>
 
-                                    <div className="row">
+                                    {/* <div className="row">
                                         <div className="col-md-6 mb-4 pb-2">
 
                                             <div className="form-outline">
@@ -122,7 +122,7 @@ function Signup() {
                                             </div>
 
                                         </div>
-                                    </div>
+                                    </div> */}
 
                                     <div className="mt-4 pt-2">
                                         <input className="btn btn-primary btn-lg" type="submit" value="Submit" />

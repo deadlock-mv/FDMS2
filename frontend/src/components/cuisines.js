@@ -181,14 +181,14 @@ const SideMenu = styled.div`
     //display sticky goes here!
     width : 20vw;
     margin-left: 20px;
-    margin-top: 0px !important;
+    margin-top: 60px !important;
+    postion : fixed;
 `
 
 const ParentContainer = styled.div`
     display : flex;
     flex-direction : row;
     justify-content : space-between;
-    align-items : center
 `
 
 const BodyContainer = styled.div`
@@ -198,4 +198,7 @@ const BodyContainer = styled.div`
 
 const CheckOutContainer = styled.div`
     width: 22vw;
+    margin-top: 60px !important;
+    postion : fixed;
+
 `

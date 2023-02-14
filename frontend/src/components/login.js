@@ -4,17 +4,25 @@ import axios from "axios";
 import './CSS/Login.css'
 
 function Login() {
-    const [logindata, setLoginData] = useState({
-        username: "",
-        password: "",
-    })
+    // const [logindata, setLoginData] = useState({
+    //     username: "",
+    //     password: "",
+    // })
 
+    const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('')
     function onSubmit(e) {
-        const loginform = new FormData
-        loginform.append('username', logindata.username)
-        loginform.append('password', logindata.password)
+        e.preventDefault()
         try {
-            axios.post("http://127.0.0.1:8000/login/", loginform)
+            axios({
+                method: "POST",
+                url: "http://127.0.0.1:8000/api/login/",
+                data:
+                    {
+                    username: username,
+                    password: password,
+                },
+            })
                 .then((res) => {
                     if(res.data.bool == true) {
                         localStorage.setItem('loginstatus', true)
@@ -38,12 +46,12 @@ function Login() {
     }
 
 
-    function handleChange(e) {
-        const newdata = { ...logindata }
-        newdata[e.target.id] = e.target.value
-        setLoginData(newdata)
-        // console.log(newdata)
-    }
+    // function handleChange(e) {
+    //     const newdata = { ...logindata }
+    //     newdata[e.target.id] = e.target.value
+    //     setLoginData(newdata)
+    //     // console.log(newdata)
+    // }
 
     return (
         <section className="vh-100 gradient-custom">
@@ -59,12 +67,12 @@ function Login() {
                                         <p className="text-white-50 mb-5">Please enter your Email and password!</p>
 
                                         <div className="form-outline form-white mb-4">
-                                            <input type="email" onChange={(e) => handleChange(e)} id="username" className="form-control form-control-lg" required="Enter things" />
+                                            <input type="email" onChange={(e) => setUsername(e.target.value)} id="username" className="form-control form-control-lg" required="Enter things" />
                                             <label className="form-label" for="typeEmailX">Email</label>
                                         </div>
 
                                         <div className="form-outline form-white mb-4">
-                                            <input type="password" onChange={(e) => handleChange(e)} id="password" className="form-control form-control-lg" required />
+                                            <input type="password" onChange={(e) => setPassword(e.target.value)} id="password" className="form-control form-control-lg" required />
                                             <label className="form-label" for="typePasswordX">Password</label>
                                         </div>
 
