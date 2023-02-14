@@ -1,0 +1,66 @@
+<!-- HTML for the order placement form -->
+<form id="order-form">
+    <h2>Place an Order</h2>
+    <label for="restaurant">
+      Menu:
+    
+    </label>
+    <br>
+    <label for="search-items">
+      Search items:
+      <input type="text" id="search-items" name="search-items" placeholder="Search...">
+    </label>
+    <br>
+    <div id="item-list">
+      <div class="item" data-name="Item 1" data-price="10">
+        <img src="item-1.jpg" alt="Item 1" class="item-image">
+        <span class="item-name">Item 1</span>
+        <span class="item-price">$10</span>
+        <button type="button" class="add-item">Add</button>
+      </div>
+      <div class="item" data-name="Item 2" data-price="5">
+        <img src="item-2.jpg" alt="Item 2" class="item-image">
+        <span class="item-name">Item 2</span>
+        <span class="item-price">$5</span>
+        <button type="button" class="add-item">Add</button>
+      </div>
+      <!-- Add more items here -->
+    </div>
+    <div id="selected-items">
+      <h3>Selected Items:</h3>
+      <div id="no-items">No items selected</div>
+    </div>
+    <label for="instructions">
+      Special Instructions:
+      <textarea id="instructions" name="instructions"></textarea>
+    </label>
+    <br>
+    <div id="pricing">
+      Subtotal: <span id="subtotal">$0</span>
+      <br>
+      Total: <span id="total">$0</span>
+    </div>
+    <button type="submit">Place Order</button>
+  </form>
+  
+  <!-- CSS for the order placement form -->
+  <style>
+    #order-form {
+      width: 500px;
+      margin: 0 auto;
+      text-align: left;
+    }
+    #order-form label {
+      display: block;
+      margin-bottom: 10px;
+    }
+    #order-form select, #order-form input[type="text"], #order-form textarea {
+      width: 100%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    #order-form button
+  
