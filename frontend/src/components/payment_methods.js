@@ -44,20 +44,17 @@ export default function Payment() {
     return (
 
 
-        <div style={{ width: "18rem", height: '400px', margin: 'auto' }}>
+        <div style={{ width: "18rem", height: '400px', margin: 'auto', marginTop:'50px' }}>
             <ListGroup>
-                <Link to='/orders'>
-                    <ListGroup.Item onClick={(e) => handleClick(e)} action variant="primary">UPI</ListGroup.Item>
-                </Link>
-                <Link to='/orders'>
-                    <ListGroup.Item action variant="warning" onClick={(e) => handleClick(e)}>Debit/Credit Card</ListGroup.Item>
-                </Link>
-                <Link to='/orders'>
-                    <ListGroup.Item action variant="success" onClick={(e) => handleClick(e)}>Netbanking</ListGroup.Item>
-                </Link>
-                <Link to='/orders'>
-                    <ListGroup.Item action variant="danger" onClick={(e) => handleClick(e)}>Wallets</ListGroup.Item>
-                </Link>
+                
+                <ListGroup.Item onClick={(e) => handleClick(e)} action variant="primary">UPI</ListGroup.Item>
+                
+                <ListGroup.Item action variant="warning" onClick={(e) => handleClick(e)}>Debit/Credit Card</ListGroup.Item>
+                
+                <ListGroup.Item action variant="success" onClick={(e) => handleClick(e)}>Netbanking</ListGroup.Item>
+                
+                <ListGroup.Item action variant="danger" onClick={(e) => handleClick(e)}>Wallets</ListGroup.Item>
+                
             </ListGroup>
         </div>
 

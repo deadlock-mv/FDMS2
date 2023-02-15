@@ -87,15 +87,17 @@ function Cuisines() {
                     {/* <div> */}
                         {/* <aside >  */}
                             {/* className="col-md-4 col-sm-3" */}
-                            <div  className="card">
-                                <h5 className="card-header">Menu</h5>
-                                <div id="list-example" className="list-group list-group-flush">
-                                
-                                    {/* Menu tab for loop populating */}
-                                    {cuisine.map((menu) => (
-                                        <a className="list-group-item list-group-item-action" href={"#list-item-" + menu.id}>{menu.categoryname}</a>
-                                    ))}
-                                
+                            <div  class="position-fixed" style={{width:"20vw"}}>
+                                <div  className="card menuSidebar">
+                                    <h5 className="card-header">Menu</h5>
+                                    <div id="list-example" className="list-group list-group-flush">
+                                    
+                                        {/* Menu tab for loop populating */}
+                                        {cuisine.map((menu) => (
+                                            <a className="list-group-item list-group-item-action" href={"#list-item-" + menu.id}>{menu.categoryname}</a>
+                                        ))}
+                                    
+                                    </div>
                                 </div>
                             </div>
                         {/* </aside> */}
@@ -149,22 +151,24 @@ function Cuisines() {
 
                 {/* Total Card -- total is counted on each update  */}
                 <CheckOutContainer>
-                    <div className="card" style={{ width: "20rem" }}>
-                        <div className="card-header">
-                            <h5>Total Amount</h5>
+                    <div  class="position-fixed" style={{width:"20vw"}}>
+                        <div className="card">
+                            <div className="card-header">
+                                <h5>Total Amount</h5>
+                            </div>
+                            {loginstatus=='true' &&
+                            <div className="card-body">
+                                <h5 className="card-title">{total}</h5>
+                                <Link to="/order_review" state={{data: data}} className="btn btn-primary">Place Order</Link>
+                            </div>
+                            }
+                            {loginstatus!='true' &&
+                            <div className="card-body">
+                                <h5 className="card-title">{total}</h5>
+                                <Link to="/login"  className="btn btn-primary">Login to Order</Link>
+                            </div>
+                            }
                         </div>
-                        {loginstatus=='true' &&
-                        <div className="card-body">
-                            <h5 className="card-title">{total}</h5>
-                            <Link to="/order_review" state={{data: data}} className="btn btn-primary">Place Order</Link>
-                        </div>
-                        }
-                        {loginstatus!='true' &&
-                        <div className="card-body">
-                            <h5 className="card-title">{total}</h5>
-                            <Link to="/login"  className="btn btn-primary">Login to Order</Link>
-                        </div>
-                        }
                     </div>
                 </CheckOutContainer>
             {/* </div> */}
@@ -178,14 +182,14 @@ export default Cuisines;
 //declaring styled components
 
 const SideMenu = styled.div`
-    //display sticky goes here!
+    display : block;
     width : 20vw;
     margin-left: 20px;
     margin-top: 60px !important;
-    postion : fixed;
 `
 
 const ParentContainer = styled.div`
+    position : relative;
     display : flex;
     flex-direction : row;
     justify-content : space-between;
