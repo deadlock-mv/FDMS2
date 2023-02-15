@@ -4,17 +4,6 @@ from rest_framework import status
 from app.models import *
 
 
-# class UserSerializer(serializers.Serializer):
-    # id = serializers.IntegerField(read_only=True)
-    # name = serializers.CharField()
-    # userid = serializers.IntegerField(read_only=True)
-    # active = serializers.BooleanField()
-    
-
-    # class Meta:
-    # model = User
-
-
 class OrderitemSerializer(serializers.ModelSerializer):
     
     class Meta:
@@ -27,26 +16,9 @@ class FoodorderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Foodorder
         fields = '__all__'
-
-
-# class FoodorderpostSerializer(serializers.ModelSerializer):
-#     orderitem = OrderitemSerializer(many=True)
-#     class Meta:
-#         model = Orderitem
-#         fields = ('customerid', 'orderstatusid', 'delagentid', 'totalamount','orderitem')
-
-#     def create(self, validated_data):
-#         orderitem = validated_data.pop('orderitem')
-#         print(**validated_data)
-#         foodOrder = Foodorder.objects.create(**validated_data)
-#         for order in orderitem:
-#             Orderitem.object.create(orderid=foodOrder, **order)
-#         return foodOrder
         
-   
 
 class ItemlistSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Itemlist
         fields = '__all__'
@@ -72,8 +44,9 @@ class UserSerializer(serializers.ModelSerializer):
             return value
 
 
-# class AuthUserSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = AuthUser
-#         fields = ['username','password']
+class UserOrderSerializer(serializers.ModelSerializer):
+    orders = FoodorderSerializer(many=True, read_only=True)
 
+    class Meta:
+        model = User
+        fields = ['orders']
