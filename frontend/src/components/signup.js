@@ -19,12 +19,10 @@ function Signup() {
     })
     
     const [data, setData] = useState({
-        name: "",
         username: "",
+        email: "",
         password: "",
-        address: "",
-        pincode: "",
-        phone: "",
+        password2: "",
     })
 
 

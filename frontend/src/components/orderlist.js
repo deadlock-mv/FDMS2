@@ -42,8 +42,8 @@ function OrderList(props) {
                     Review Order
                 </div>
                 <div className="card-body">
-                    <h5 className="card-title">Special title treatment</h5>
-                    <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    <h5 className="card-title"></h5>
+                    <p className="card-text"></p>
                     <table class="table table-hover">
                         <thead>
                             <tr>

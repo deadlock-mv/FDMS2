@@ -1,7 +1,7 @@
 import { render } from "react-dom";
 import { useParams } from "react-router-dom";
 // import { getcuisine } from "./services/services";
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useState, useEffect } from "react";
 import axios from "axios";
 import styled from 'styled-components';
@@ -20,16 +20,16 @@ function Cuisines() {
     // using for calculating total after each update 
     useEffect(() => {
         let amt = 0;
-    
+
         for (let key in data) {
             amt += data[key][2];
-            if (data[key][2]==0){
+            if (data[key][2] == 0) {
                 let deldata = data;
                 delete deldata[key];
                 setData(deldata);
             }
         }
-    
+
         setTotal(amt);
     }, [data]);
 
@@ -82,95 +82,99 @@ function Cuisines() {
         <ParentContainer >
             {/* <div className="container mt-4"></div> */}
             {/* <div className="row"> */}
-                {/* sidebar def */}
-                <SideMenu>
-                    {/* <div> */}
-                        {/* <aside >  */}
-                            {/* className="col-md-4 col-sm-3" */}
-                            <div  class="position-fixed" style={{width:"20vw"}}>
-                                <div  className="card menuSidebar">
-                                    <h5 className="card-header">Menu</h5>
-                                    <div id="list-example" className="list-group list-group-flush">
-                                    
-                                        {/* Menu tab for loop populating */}
-                                        {cuisine.map((menu) => (
-                                            <a className="list-group-item list-group-item-action" href={"#list-item-" + menu.id}>{menu.categoryname}</a>
-                                        ))}
-                                    
-                                    </div>
-                                </div>
-                            </div>
-                        {/* </aside> */}
-                    {/* </div> */}
-                </SideMenu>
-                {/* sidebar def end */}
+            {/* sidebar def */}
+            <SideMenu>
+                {/* <div> */}
+                {/* <aside >  */}
+                {/* className="col-md-4 col-sm-3" */}
+                <div class="position-fixed" style={{ width: "20vw" }}>
+                    <div className="card menuSidebar">
+                        <h5 className="card-header">Menu</h5>
+                        <div id="list-example" className="list-group list-group-flush">
 
-                {/* main body items  */}
-                <BodyContainer>
-                {/* <section className="col-md-8 col-sm-6 ms-4 p-5"> */}
-                    <div className="card p-5" >
-                        <div data-spy="scroll" data-target="#list-example" data-offset="0" className="scrollspy-example">
-                            
-                            {/* populating order list table */}
-                            {cuisine.map((menu, idx) => (
-                                <>
-                                    <h4 id={"list-item-" + menu.id}>{menu.categoryname}</h4>
-                                    <table class="table table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">#</th>
-                                                <th scope="col">Item_Pic</th>
-                                                <th scope="col">Items</th>
-                                                <th scope="col">Price</th>
-                                                <th scope="col">Quantity</th>
-                                            </tr>
-                                        </thead>
-                                        {menu.items.map((itemlist) => (
-                                            <tbody>
-                                                <tr>
-                                                    <th scope="row">1</th>
-                                                    <td>Pic</td>
-                                                    <td>{itemlist.itemname}</td>
-                                                    <td>{itemlist.price}</td>
-                                                    <td><input type="number" min='0' max='5' id={itemlist} name={itemlist.id}
-                                                        onChange={(e) => handleInput(e, itemlist)}  required />
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        ))}
-                                    </table>
-                                </>
+                            {/* Menu tab for loop populating */}
+                            {cuisine.map((menu) => (
+                                <a className="list-group-item list-group-item-action" href={"#list-item-" + menu.id}>{menu.categoryname}</a>
                             ))}
+
+                        </div>
+                    </div>
+                </div>
+                {/* </aside> */}
+                {/* </div> */}
+            </SideMenu>
+            {/* sidebar def end */}
+
+            {/* main body items  */}
+            <BodyContainer>
+                {/* <section className="col-md-8 col-sm-6 ms-4 p-5"> */}
+                <div className="card p-5" >
+                    <div data-spy="scroll" data-target="#list-example" data-offset="0" className="scrollspy-example">
+
+                        {/* populating order list table */}
+                        {cuisine.map((menu, idx) => (
+                            <>
+                                <h4 id={"list-item-" + menu.id}>{menu.categoryname}</h4>
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Item_Pic</th>
+                                            <th scope="col">Items</th>
+                                            <th scope="col">Price</th>
+                                            <th scope="col">Quantity</th>
+                                        </tr>
+                                    </thead>
+                                    {menu.items.map((itemlist) => (
+                                        <tbody>
+                                            <tr>
+                                                <th scope="row">1</th>
+                                                <td>
+                                                    <div style={{ marign: 'auto' }}>
+                                                        <img src={itemlist.image} style={{ height: '60px', width: '60px', borderRadius: '8px' }} alt="loading" />
+                                                    </div>
+                                                </td>
+                                                <td>{itemlist.itemname}</td>
+                                                <td>{itemlist.price}</td>
+                                                <td><input type="number" min='0' max='5' id={itemlist} name={itemlist.id}
+                                                    onChange={(e) => handleInput(e, itemlist)} required />
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    ))}
+                                </table>
+                            </>
+                        ))}
                         {/* populating order list table end */}
 
-                        </div>
                     </div>
+                </div>
                 {/* </section> */}
                 {/* main body items end  */}
-                </BodyContainer>
+            </BodyContainer>
 
-                {/* Total Card -- total is counted on each update  */}
-                <CheckOutContainer>
-                    <div  class="position-fixed" style={{width:"20vw"}}>
-                        <div className="card">
-                            <div className="card-header">
-                                <h5>Total Amount</h5>
-                            </div>
-                            {loginstatus=='true' &&
-                            <div className="card-body">
-                                <h5 className="card-title">{total}</h5>
-                                <Link to="/order_review" state={{data: data}} className="btn btn-primary">Place Order</Link>
-                            </div>
-                            }
-                            {loginstatus!='true' &&
-                            <div className="card-body">
-                                <h5 className="card-title">{total}</h5>
-                                <Link to="/login"  className="btn btn-primary">Login to Order</Link>
-                            </div>
-                            }
+            {/* Total Card -- total is counted on each update  */}
+            <CheckOutContainer>
+                <div class="position-fixed" style={{ width: "20vw" }}>
+                    <div className="card">
+                        <div className="card-header">
+                            <h5>Total Amount</h5>
                         </div>
+                        {loginstatus == 'true' &&
+                            <div className="card-body">
+                                <h5 className="card-title">{total}</h5>
+                                <Link to="/order_review" state={{ data: data }} className="btn btn-primary">Place Order</Link>
+                            </div>
+                        }
+                        {loginstatus != 'true' &&
+                            <div className="card-body">
+                                <h5 className="card-title">{total}</h5>
+                                <Link to="/login" className="btn btn-primary">Login to Order</Link>
+                            </div>
+                        }
                     </div>
-                </CheckOutContainer>
+                </div>
+            </CheckOutContainer>
             {/* </div> */}
         </ParentContainer>
 
@@ -204,5 +208,4 @@ const CheckOutContainer = styled.div`
     width: 22vw;
     margin-top: 60px !important;
     postion : fixed;
-
 `

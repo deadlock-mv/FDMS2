@@ -6,7 +6,7 @@ function Header() {
   const loginstatus = localStorage.getItem('loginstatus');
   
   return (
-      <div class="sticky-top">
+      <div className="sticky-top">
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <div className="container-fluid">
           <Link className="navbar-brand ms-2" to="/">Taste Mein Best Sherey da Daba</Link>
