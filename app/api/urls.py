@@ -6,7 +6,7 @@ urlpatterns = [
     # admin related
     path('userlist/', UserList.as_view(), name='UserList'),
     path('userlist/<int:pk>/', UserList.as_view(), name='UserList'),
-    path('Category/',CategoryList.as_view(), name='CategoryList'),
+    path('Category/', CategoryList.as_view(), name='CategoryList'),
     path('Category/<int:pk>/', CategoryDetail.as_view(), name='CategoryDetail'),
     path('Order/', OrderList.as_view(), name='OrderList'),
     path('Order/<int:pk>/', OrderList.as_view(), name='Order'),

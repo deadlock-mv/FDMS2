@@ -44,9 +44,27 @@ class UserSerializer(serializers.ModelSerializer):
             return value
 
 
+class OrderItemDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Orderitem
+        fields = ['quantity', 'itemid']
+        depth = 1
+
+
+
+class OrderDetailSerializer(serializers.ModelSerializer):
+    orderitem = OrderItemDetailSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Foodorder
+        fields = ['id', 'status', 'totalamount', 'orderitem']
+
+
 class UserOrderSerializer(serializers.ModelSerializer):
     orders = FoodorderSerializer(many=True, read_only=True)
 
     class Meta:
         model = User
         fields = ['orders']
+
+

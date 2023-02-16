@@ -80,7 +80,6 @@ class UserDetail(APIView):
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-            
     def delete(self, request, pk=None):
         users = User.objects.get(pk=pk)
         users.delete()
@@ -152,7 +151,7 @@ class UserOrder(APIView):
     def get(self, request, pk):
         try:
             details = Foodorder.objects.filter(customerid=pk)
-            serializer = FoodorderSerializer(details, many=True)
+            serializer = OrderDetailSerializer(details, many=True)
         except Exception as e:
             return Response(status=status.HTTP_404_NOT_FOUND)
         return Response(serializer.data, status=status.HTTP_200_OK)
