@@ -9,6 +9,7 @@ from rest_framework import generics, viewsets
 from django.http import Http404, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.permissions import IsAdminUser
+from app.api.pagination import UserOrderPagination
 
 # Create your views here.
 
@@ -61,7 +62,8 @@ class UserList(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT) 
 
 
-# particular user related functionality like get, put, delete for now -feb 9, need to add post functionality for ordering
+# particular user related functionality like get, put, delete for now -feb 9,
+# need to add post functionality for ordering
 class UserDetail(APIView):
     def get(self, request, pk=None):
         try:
@@ -124,6 +126,7 @@ class CategoryDetail(APIView):
         categories.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+
 class OrderList(APIView):
 # order list with order items 
     def get(self, request, pk=None):
@@ -146,15 +149,43 @@ class OrderList(APIView):
             return Response(serializer.data, status=status.HTTP_200_OK)
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
-    
+
+
 class UserOrder(APIView):
+    pagination_class = UserOrderPagination
+
+    @property
+    def paginator(self):
+        """The paginator instance associated with the view, or `None`."""
+        if not hasattr(self, '_paginator'):
+            if self.pagination_class is None:
+                self._paginator = None
+            else:
+                self._paginator = self.pagination_class()
+        return self._paginator
+
+    def paginate_queryset(self, queryset):
+        """Return a single page of results, or `None` if pagination is disabled."""
+        if self.paginator is None:
+            return None
+        return self.paginator.paginate_queryset(queryset, self.request, view=self)
+
+    def get_paginated_response(self, data):
+        """Return a paginated style `Response` object for the given output data."""
+        assert self.paginator is not None
+        return self.paginator.get_paginated_response(data)
+
     def get(self, request, pk):
         try:
             details = Foodorder.objects.filter(customerid=pk)
-            serializer = OrderDetailSerializer(details, many=True)
+            page = self.paginate_queryset(details)
+            if page is not None:
+                serializer = OrderDetailSerializer(page, many=True)
+                return self.get_paginated_response(serializer.data)
         except Exception as e:
             return Response(status=status.HTTP_404_NOT_FOUND)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        # return Response(serializer.data, status=status.HTTP_200_OK)
+
 
 class OrdPost(APIView):
     def post(self, request):
