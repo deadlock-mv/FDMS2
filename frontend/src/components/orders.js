@@ -4,9 +4,13 @@ import Collapse from 'react-bootstrap/Collapse';
 import Table from 'react-bootstrap/Table';
 import axios from 'axios';
 
+const baseUrl = "http://127.0.0.1:8000/user/orders/"
+
 function Orders() {
     let [open, setOpen] = useState(false);
     const [data, setData] = useState([]);
+    const [prevUrl, setPrevUrl] = useState([]);
+    const [nextUrl, setNextUrl] = useState([]);
     const customerid = Number(localStorage.getItem('userid'));
 
     useEffect(() => {
@@ -17,10 +21,11 @@ function Orders() {
     function getOrders() {
         axios({
             method: "GET",
-            url: ("http://127.0.0.1:8000/user/orders/" + customerid),
+            url: (baseUrl + customerid),
         }).then((response) => {
-            const data = response.data
-            setData(data)
+            setData(response.data.results)
+            setPrevUrl(response.data.previous)
+            setNextUrl(response.data.next)
         }).catch((error) => {
             if (error) {
                 console.log(error.response);
@@ -30,6 +35,21 @@ function Orders() {
             }
         })
     };
+
+    function paginationHandler(url) {
+        try {
+            axios.get(url)
+                .then((response) => {
+                    setNextUrl(response.data.next)
+                    setPrevUrl(response.data.previous)
+                    setData(response.data.results)
+                });
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+
 
     // seting the open variable with id:false pair at beginning for collapsible 
     useEffect(() => {
@@ -42,8 +62,8 @@ function Orders() {
 
     return (
         // maping to get orderid 
-        <>
-            {data.map((order) =>
+        <div>
+            {data && data.map((order) =>
                 <div className='card' style={{ margin: 'auto', width: '400px', marginTop: '25px' }}>
                     <Button
                         onClick={() => setOpen(open => ({ ...open, [order.id]: !open[order.id] }))}
@@ -67,7 +87,7 @@ function Orders() {
                                     <tbody>
                                         <tr>
                                             <td>
-                                                <div style={{ marign: 'auto'}}>
+                                                <div style={{ marign: 'auto' }}>
                                                     <img src={item.itemid.image} style={{ height: '60px', width: '60px', borderRadius: '8px' }} alt="loading" />
                                                 </div>
                                             </td>
@@ -79,17 +99,51 @@ function Orders() {
                                 )}
                                 {/* end of filling order items  */}
                             </Table>
+                            <label>status: {order.status}</label>
                         </div>
                     </Collapse>
                 </div>
             )}
-        </>
+
+            {/* pagination start */}
+            <div style={{ marginTop: '10px' }} >
+                <nav aria-label="Page navigation example">
+                    <ul className="pagination justify-content-center">
+                        {prevUrl &&
+                            <li className="page-item"><button className="page-link" onClick={() => paginationHandler(prevUrl)} ><i className="bi bi-arrow-bar-left"></i>Previous</button></li>
+                        }
+
+                        {nextUrl &&
+                            <li className="page-item"><button className="page-link" onClick={() => paginationHandler(nextUrl)}>Next<i className="bi bi-arrow-bar-right"></i></button></li>
+                        }
+                    </ul>
+                </nav>
+            </div>
+            {/* pagination end */}
+        </div>
     )
 }
 
 export default Orders;
 
-
+{/* <div className='card' style={{marign: 'auto'}}>
+            <nav aria-label="Page navigation example mt-5">
+                <ul className='paginaton justify-content-center'>
+                    <li className='page-item'>
+                        <button className='page-link'>
+                            <i className='bi bi-arrow-left'></i>
+                            Previous
+                        </button>
+                    </li>
+                    <li className='page-item'>
+                        <button className='page-link'>
+                            <i className='bi bi-arrow-right'></i>
+                            Next
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+            </div> */}
 
 // {data.map((order)=>{
 //     <div className='card' style={{ margin: 'auto', width: '400px', marginTop: '25px' }}>    
