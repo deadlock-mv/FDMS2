@@ -177,7 +177,7 @@ class UserOrder(APIView):
 
     def get(self, request, pk):
         try:
-            details = Foodorder.objects.filter(customerid=pk)
+            details = Foodorder.objects.filter(customerid=pk).order_by('-id')
             page = self.paginate_queryset(details)
             if page is not None:
                 serializer = OrderDetailSerializer(page, many=True)
