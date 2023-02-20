@@ -36,7 +36,7 @@ function OrderList(props) {
     
 
     return (
-        <div className="container mt-4 ">
+        <div className="container mt-4 " style={{width:"600px"}}>
             <div className="card text-center">
                 <div className="card-header">
                     Review Order
@@ -47,8 +47,7 @@ function OrderList(props) {
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Item_Pic</th>
+                                
                                 <th scope="col">Items</th>
                                 <th scope="col">Price</th>
                                 <th scope="col">Quantity</th>
@@ -57,8 +56,8 @@ function OrderList(props) {
                         <tbody>
                             {Object.entries(data).map(([key, [name, quantity, price]]) => (
                                 <tr key={key}>
-                                    <th scope="row">1</th>
-                                    <td>Pic</td>
+                                    
+                                    
                                     <td>{name}</td>
                                     <td>{price}</td>
                                     <td>{quantity}</td>

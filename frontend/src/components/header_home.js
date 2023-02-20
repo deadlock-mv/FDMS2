@@ -9,7 +9,7 @@ function Header() {
       <div className="sticky-top">
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <div className="container-fluid">
-          <Link className="navbar-brand ms-2" to="/">Taste Mein Best Sherey da Daba</Link>
+          <Link className="navbar-brand ms-2" to="/">Taste Mein Best Sherey da Best</Link>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
@@ -18,12 +18,21 @@ function Header() {
               <li className="nav-item">
                 <Link className="nav-link active" aria-current="page" to="/">Home</Link>
               </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#">Features</a>
-              </li>
+        
               <li className="nav-item">
                 <Link className="nav-link" to="/detail/1">Cuisines</Link>
               </li>
+              
+              <li className="nav-item dropdown">
+                <a className="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Manager
+                </a>
+                <ul className="dropdown-menu">
+                  <li><Link className="dropdown-item" to="/manager/dashboard">Dashboard</Link></li>
+                  <li><Link className="dropdown-item" to="/">Login</Link></li>
+                </ul>
+              </li>
+              
               {loginstatus=='true' &&
               <li className="nav-item dropdown">
                 <a className="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">

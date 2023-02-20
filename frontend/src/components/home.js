@@ -8,7 +8,7 @@ function Home() {
         <div className="row">
             <div className="col-md-3 ">
                 <div className="card text-bg-dark">
-                    <Link to='/detail/1'><img src="chinese.png" className="card-img" alt="..."/></Link>
+                    <Link to='/detail/1'><img src="chinese.jpg" className="card-img" alt="..."/></Link>
                     <h5 className="card-title"><Link to='/detail/1'>Chinese</Link></h5>
                 </div>
             </div>
@@ -38,7 +38,7 @@ function Home() {
         <h3 className="pb-1 mb-4 mt-5">Popular Dishes</h3>
             <div className="col-md-3">
                 <div className="card text-bg-dark">
-                    <Link to='#'><img src="chinese.png" className="card-img" alt="..."/></Link>
+                    <Link to='#'><img src="chinese.jpg" className="card-img" alt="..."/></Link>
                     <h5 className="card-title"><Link to='#'>Chinese</Link></h5>
                 </div>
             </div>
