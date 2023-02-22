@@ -1,6 +1,7 @@
 function Footer() {
     return(
-        <footer className="text-mutated py-5 border-top mt-5">
+        <div className="fixed-bottom">
+        <footer className="text-mutated border-top mt-5">
             <div className="card">
             <div className="card-body">
                 <blockquote className="blockquote mb-0">
@@ -13,6 +14,7 @@ function Footer() {
             </div>
             </div>
         </footer>
+        </div>
     );
 }
 
