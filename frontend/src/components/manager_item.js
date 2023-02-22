@@ -1,17 +1,27 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { Button } from "react-bootstrap";
 import styled from 'styled-components';
 import SideBar from "./manager_sidebar";
+import ModalEditItem from "./modal_edit_item";
+import ModalAddItem from "./modal_add_item";
 
 export default function ManagerItem() {
-    
-    const [item, setItem] = useState()
+
+    const [item, setItem] = useState();
+    const [edit, setEdit] = useState(false);
+    const [add, setAdd] = useState(false);
+    const [flag, setFlag] = useState(false);
+    const [id, setId] = useState(0);
+
+    const editModalClose = () => setEdit(false);
+    const addModalClose = () => setAdd(false);
 
     useEffect(() => {
         getItem()
     }, []);
-    
+
     function getItem() {
         axios({
             method: "GET",
@@ -29,10 +39,26 @@ export default function ManagerItem() {
         })
     }
 
-    function handleChange(e){
-        e.preventDefault();
+    function handleChange(e) {
+        if (e.target.value != "cac") {
+            setFlag(true)
+        } else {
+            setFlag(false)
+        }
+        setId(e.target.value)
     }
-    
+
+    function handleDelete(e) {
+        axios.delete(("http://127.0.0.1:8000/res-manager/item/" + id))
+            .then(() => {
+                alert("Deleted Successfully");
+                getItem();
+            })
+            .catch((error) => {
+                console.log(error.response)
+            })
+    }
+
     return (
         <ParentContainer >
             <SideBar />
@@ -43,25 +69,36 @@ export default function ManagerItem() {
 
                 <div className="card p-5" >
                     <div data-spy="scroll" data-target="#list-example" data-offset="0" className="scrollspy-example">
-                        <div className='row'>
+                        <div className='row' style={{ height: '100px' }}>
                             <div data-spy="scroll" data-target="#list-example" data-offset="0" className="scrollspy-example">
                                 Items
                                 <span>&nbsp; &nbsp;</span>
                                 <select name='itemid' value={item && item.itemname} onChange={handleChange} required>
-                                    <option value="">Choose a item</option>
+                                    <option value="cac">Choose a item</option>
                                     {item && item.map((it) => (
                                         <option key={it.id} value={it.id}>{it.itemname}</option>
                                     ))}
                                 </select>
-                                <Link to="" className="btn btn-primary btn-sm ms-4"><i class="fa-solid fa-pen-to-square"></i> Edit</Link>
-                                <Link to="" className="btn btn-primary btn-sm ms-4"><i class="fa-solid fa-trash"></i> Del</Link>
+                                {flag &&
+                                    <><Button variant="primary" style={{ marginLeft: '20px' }} onClick={() => setEdit(true)}><i class="fa-solid fa-pen-to-square"></i> Edit</Button>
+                                        {edit &&
+                                            <ModalEditItem show={edit}
+                                                onHide={editModalClose}
+                                                id={id} />}
+
+                                        <Button variant="secondary" style={{ marginLeft: '20px' }} onClick={(e) => handleDelete(e)}><i class="fa-solid fa-trash"></i> Del</Button>
+                                    </>
+                                }
                             </div>
 
                         </div>
                         <div className='row'>
-                            <Link to="" className="btn btn-primary btn-sm mt-4 w-25"><i class="fa-duotone fa-plus"></i> Add Item</Link>
+                        <Button variant="success" onClick={() => setAdd((true))}><i class="fa-regular fa-layer-plus"></i> Add Category</Button>
+                        {add &&
+                            <ModalAddItem show={add}
+                                onHide={addModalClose} />}
 
-                        </div>
+                    </div>
                     </div>
                 </div>
 

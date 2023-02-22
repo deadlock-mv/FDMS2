@@ -9,11 +9,11 @@ import ModalAddCategory from "./modal_add_category";
 
 export default function ManagerCategory() {
     const [category, setCategory] = useState();
-    const [edit,setEdit] = useState(false);
+    const [edit, setEdit] = useState(false);
     const [add, setAdd] = useState(false);
-    const [flag,setFlag] = useState(false);
-    const [id,setId] = useState(0);
-    
+    const [flag, setFlag] = useState(false);
+    const [id, setId] = useState(0);
+
 
     const editModalClose = () => setEdit(false);
     const addModalClose = () => setAdd(false);
@@ -40,7 +40,7 @@ export default function ManagerCategory() {
     }
 
     function handleChange(e) {
-        if(e.target.value!="cac"){
+        if (e.target.value != "cac") {
             setFlag(true)
         } else {
             setFlag(false)
@@ -48,15 +48,15 @@ export default function ManagerCategory() {
         setId(e.target.value)
     }
 
-    function handleDelete(e){
+    function handleDelete(e) {
         axios.delete(("http://127.0.0.1:8000/res-manager/category/" + id))
-        .then(()=>{
-            alert("Deleted Successfully");
-            getCategory();
-        })
-        .catch((error) => {
-            console.log(error.response)
-        })
+            .then(() => {
+                alert("Deleted Successfully");
+                getCategory();
+            })
+            .catch((error) => {
+                console.log(error.response)
+            })
     }
 
     return (
@@ -67,7 +67,7 @@ export default function ManagerCategory() {
                     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
                 </head>
                 <div className="card p-5" >
-                    <div className='row' style={{height:'100px'}}>
+                    <div className='row' style={{ height: '100px' }}>
                         <div data-spy="scroll" data-target="#list-example" data-offset="0" className="scrollspy-example">
                             Category
                             <span>&nbsp; &nbsp;</span>
@@ -78,23 +78,23 @@ export default function ManagerCategory() {
                                 ))}
                             </select>
                             {flag &&
-                            <><Button variant="primary" style={{margin:'20px'}} onClick={() => setEdit(true)}><i class="fa-solid fa-pen-to-square"></i> Edit</Button>
-                            {edit && 
-                            <ModalEditCategory show={edit}
-                            onHide={editModalClose}
-                            id={id}/>}
+                                <><Button variant="primary" style={{ marginLeft: '20px' }} onClick={() => setEdit(true)}><i class="fa-solid fa-pen-to-square"></i> Edit</Button>
+                                    {edit &&
+                                        <ModalEditCategory show={edit}
+                                            onHide={editModalClose}
+                                            id={id} />}
 
-                            <Button variant="secondary" onClick={(e)=> handleDelete(e)}><i class="fa-solid fa-trash"></i> Del</Button>
-                            </>
+                                    <Button variant="secondary" style={{ marginLeft: '20px' }} onClick={(e) => handleDelete(e)}><i class="fa-solid fa-trash"></i> Del</Button>
+                                </>
                             }
                         </div>
 
                     </div>
                     <div className='row'>
-                    <Button variant="success" onClick={()=> setAdd((true))}><i class="fa-regular fa-layer-plus"></i> Add Category</Button>
-                    {add &&
-                    <ModalAddCategory show={add}
-                    onHide={addModalClose}/>}
+                        <Button variant="success" onClick={() => setAdd((true))}><i class="fa-regular fa-layer-plus"></i> Add Category</Button>
+                        {add &&
+                            <ModalAddCategory show={add}
+                                onHide={addModalClose} />}
 
                     </div>
 

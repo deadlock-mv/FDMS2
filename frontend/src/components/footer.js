@@ -1,6 +1,6 @@
 function Footer() {
     return(
-        <div className="fixed-bottom">
+        // <div className="fixed-bottom">
         <footer className="text-mutated border-top mt-5">
             <div className="card">
             <div className="card-body">
@@ -14,7 +14,7 @@ function Footer() {
             </div>
             </div>
         </footer>
-        </div>
+        // </div>
     );
 }
 

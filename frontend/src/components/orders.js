@@ -3,6 +3,8 @@ import Button from 'react-bootstrap/Button';
 import Collapse from 'react-bootstrap/Collapse';
 import Table from 'react-bootstrap/Table';
 import axios from 'axios';
+import { FcShipped, FcFactory, FcApproval } from 'react-icons/fc';
+import { BiDish } from "react-icons/bi";
 
 const baseUrl = "http://127.0.0.1:8000/user/orders/"
 
@@ -99,7 +101,36 @@ function Orders() {
                                 )}
                                 {/* end of filling order items  */}
                             </Table>
-                            <label>status: {order.status}</label>
+                            <div className="p-3 mb-2 bg-dark text-white">
+                                <div className="row" >
+
+                                    <div className="col-md-3 ms-2 mb-4">
+                                        status:
+                                    </div>
+                                    {order.status == "preparing" &&
+                                        <div className="col-md-4 ms-2 mb-4">
+                                            <div class="text-info">
+                                                <BiDish size={30} />Preparing
+                                            </div>
+                                        </div>
+                                    }
+                                    {order.status == "dispatched" &&
+                                        <div className="col-md-5 ms-2 mb-4">
+                                            <div class="text-info">
+                                                <FcShipped size={20} />Dispatched
+                                            </div>
+                                        </div>
+                                    }
+                                    {order.status == "Delivered" &&
+                                        <div className="col-md-4 ms-1 mb-4">
+                                            <div class="text-info">
+                                                <FcFactory size={30} />Delivered
+                                            </div>
+                                        </div>
+                                    }
+
+                                </div>
+                            </div>
                         </div>
                     </Collapse>
                 </div>
