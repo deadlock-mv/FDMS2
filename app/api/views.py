@@ -205,3 +205,34 @@ class OrdPostItems(APIView):
             return Response(serializer.data, status=status.HTTP_200_OK)
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
+
+# address getting and posting done via id=user
+# address putting and deleting done via id=pk
+class UserAddress(APIView):
+    def get(self, request, id):
+        address = Address.objects.filter(user=id)
+        serializer = UserAddressSerializer(address, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def post(self, request, id):
+        serializer = UserAddressSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    # address putting and deleting done via id=pk
+    def put(self, request, id):
+        address = Address.objects.get(pk=id)
+        serializer = UserAddressSerializer(address, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, id):
+        address = Address.objects.get(pk=id)
+        address.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)

@@ -41,6 +41,16 @@ class Deliveryagents(models.Model):
         return self.name
 
 
+class Address(models.Model):
+    address = models.CharField(max_length=300, blank=True, null=True)
+    pincode = models.CharField(max_length=10, blank=True, null=True)
+    phone = models.CharField(max_length=10, blank=True, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.user.first_name
+
+
 class Foodorder(models.Model):
     id = models.AutoField(primary_key=True)
     customerid = models.ForeignKey(User, models.DO_NOTHING, blank=False, null=False, related_name="orders")
@@ -48,6 +58,7 @@ class Foodorder(models.Model):
     delagentid = models.ForeignKey(Deliveryagents, models.DO_NOTHING, default=1)
     totalamount = models.IntegerField(blank=True, null=True)
     orderdate = models.DateTimeField(blank=True, null=True, auto_now_add=True)
+    address = models.ForeignKey(Address, models.DO_NOTHING, null=True, blank=True)
 
 
     def __str__(self):
@@ -73,14 +84,4 @@ class Orderitem(models.Model):
     def __str__(self):
         return f'{self.orderid}'
 
-
-class Address(models.Model):
-    address = models.CharField(max_length=300, blank=True, null=True)
-    pincode = models.CharField(max_length=10, blank=True, null=True)
-    phone = models.CharField(max_length=10, blank=True, null=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-
-        
-    def __str__(self):
-        return self.user.first_name
 

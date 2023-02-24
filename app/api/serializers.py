@@ -68,3 +68,10 @@ class UserOrderSerializer(serializers.ModelSerializer):
         fields = ['orders']
 
 
+class UserAddressSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Address
+        fields = '__all__'
+
+

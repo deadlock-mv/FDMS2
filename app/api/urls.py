@@ -1,5 +1,7 @@
 from django.urls import path, include
-from .views import UserList, UserDetail, CategoryList, CategoryDetail, OrderList, OrdPost, OrdPostItems, UserOrder
+from .views import (UserList, UserDetail, CategoryList, CategoryDetail, OrderList, OrdPost, OrdPostItems, UserOrder,
+                    UserAddress)
+
 
 
 urlpatterns = [
@@ -14,6 +16,7 @@ urlpatterns = [
     # user related
     path('<int:pk>/', UserDetail.as_view(), name='UserDetail'),
     path('user/orders/<int:pk>', UserOrder.as_view(), name='UserOrders'),
+    path('user/address/<int:id>', UserAddress.as_view(), name='UserOrders'),
 
     # Orderid generation & order-item-list generation // posting
     path('Order-items/', OrdPost.as_view()),
