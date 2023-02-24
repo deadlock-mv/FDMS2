@@ -137,15 +137,12 @@ class FoodOrder(APIView):
             return Response(serializer.data, status=status.HTTP_200_OK)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        
-            
 
-    # def get(self, request, pk):
-    #     try:
-    #         details = Foodorder.objects.filter(customerid=pk).order_by('-id')
-    #         page = self.paginate_queryset(details)
-    #         if page is not None:
-    #             serializer = OrderDetailSerializer(page, many=True)
-    #             return self.get_paginated_response(serializer.data)
-    #     except Exception as e:
-    #         return Response(status=status.HTTP_404_NOT_FOUND)
+
+class AddressManager(APIView):
+    def get(self, request):
+        address = Address.objects.all()
+        serializer = AddressSerializer(address, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+

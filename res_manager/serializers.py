@@ -28,3 +28,10 @@ class FoodOrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Foodorder
         fields = ['id', 'status', 'orderitem']
+
+
+class AddressSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Address
+        fields = '__all__'

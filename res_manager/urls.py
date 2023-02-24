@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import Category, Item, FoodOrder
+from .views import Category, Item, FoodOrder, AddressManager
 
 
 urlpatterns = [
@@ -9,4 +9,5 @@ urlpatterns = [
     path('res-manager/item/<int:pk>', Item.as_view()),
     path('res-manager/foodorder/', FoodOrder.as_view()),
     path('res-manager/foodorder/<int:pk>', FoodOrder.as_view()),
+    path('res-manager/address/', AddressManager.as_view()),
 ]
