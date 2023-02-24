@@ -14,11 +14,11 @@ function Orders() {
     const [prevUrl, setPrevUrl] = useState([]);
     const [nextUrl, setNextUrl] = useState([]);
     const customerid = Number(localStorage.getItem('userid'));
+    const [flag, setFlag] = useState(false);
 
     useEffect(() => {
         getOrders()
-    }, []
-    );
+    }, [flag]);
 
     function getOrders() {
         axios({
@@ -28,6 +28,7 @@ function Orders() {
             setData(response.data.results)
             setPrevUrl(response.data.previous)
             setNextUrl(response.data.next)
+            setFlag(true)
         }).catch((error) => {
             if (error) {
                 console.log(error.response);
@@ -37,6 +38,7 @@ function Orders() {
             }
         })
     };
+    console.log(data)
 
     function paginationHandler(url) {
         try {
@@ -45,6 +47,7 @@ function Orders() {
                     setNextUrl(response.data.next)
                     setPrevUrl(response.data.previous)
                     setData(response.data.results)
+                    console.log(data)
                 });
         } catch (error) {
             console.log(error);

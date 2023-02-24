@@ -7,8 +7,8 @@ export default function Payment() {
     const location = useLocation();
     const data = location.state?.data;
     const list = location.state?.list;
-    // console.log(data);
-    // console.log(list);
+    console.log(data);
+    console.log(list);
     const navigate = useNavigate()
     function handleClick(e) {
         e.preventDefault();
@@ -20,6 +20,7 @@ export default function Payment() {
                 {
                     customerid: data.customerid,
                     totalamount: data.total,
+                    address: data.address
                 },
             })
             .then((res) => {
