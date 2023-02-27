@@ -1,7 +1,8 @@
+import { StyledComponent } from "styled-components";
 function Footer() {
     return(
-        // <div className="fixed-bottom">
-        <footer className="text-mutated border-top mt-5">
+        <div className="d-flex flex-column" style={{minHeight : "30vh"}}>
+        <footer className="mt-auto fixed-bottom">
             <div className="card">
             <div className="card-body">
                 <blockquote className="blockquote mb-0">
@@ -14,7 +15,7 @@ function Footer() {
             </div>
             </div>
         </footer>
-        // </div>
+        </div>
     );
 }
 

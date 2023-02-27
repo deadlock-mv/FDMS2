@@ -21,7 +21,7 @@ import {Routes as Switch,Route} from 'react-router-dom'
 function Main() {
   return (
     <div className="Main">
-      <Header />
+      {/* <Header /> */}
       <Switch>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About/>}/>
@@ -39,7 +39,7 @@ function Main() {
         <Route path="/manager/dashboard/item" element={<ManagerItem/>}/>
         <Route path="/manager/dashboard/order" element={<ManagerOrder/>}/>
       </Switch>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }
